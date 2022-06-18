@@ -145,11 +145,12 @@ bool Interface::init()
 
 	auto textView = (Text*)choose_UI->getChildByTag(2)->getChildByTag(16);
 	textView->setVisible(true);
-	textView->setFontSize(30);
+	textView->setFontSize(20);
 	textView->setText(GBKToUTF8("武汉出现不明原因发热病例"));
 	
 	auto text_bg = (ImageView*)choose_UI->getChildByTag(2)->getChildByTag(4);
 	text_bg->addClickEventListener(CC_CALLBACK_0(Interface::next_stage, this));
+
 	//auto btn4_choose_UI = (Button*)choose_UI->getChildByTag(2)->getChildByTag(6);
 	//btn4_choose_UI->addClickEventListener(CC_CALLBACK_0(Interface::return_mainscene, this));
 
@@ -178,17 +179,35 @@ void Interface::update(float delta)
 void Interface::next_stage() 
 {
 	auto textView = (Text*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(16);
+	auto btn1_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(6);
+	auto btn2_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(13);
+	auto btn3_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(14);
+	auto covid1 = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(8);
+	auto covid2 = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(12);
+	auto covid3 = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(15);
 	textView->setVisible(true);
 	
 	stage++;
 	switch (stage)
 	{
 	case 1:
-		textView->setFontSize(30);
+		textView->setFontSize(20);
 		textView->setText(GBKToUTF8("武汉出现不明原因发热病例"));
+		btn1_choose_UI->setVisible(true);
+		covid1->setVisible(true);
 		break;
 	case 2:
-
+		textView->setFontSize(20);
+		textView->setText(GBKToUTF8("欧洲成为疫情重灾区"));
+		btn2_choose_UI->setVisible(true);
+		covid2->setVisible(true);
+		break;
+	case 3:
+		textView->setFontSize(20);
+		textView->setText(GBKToUTF8("德尔塔使美国陷入人道主义危机"));
+		btn3_choose_UI->setVisible(true);
+		covid3->setVisible(true);
+		break;
 	default:
 		break;
 	}
