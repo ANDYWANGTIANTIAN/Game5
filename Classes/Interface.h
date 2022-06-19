@@ -16,6 +16,7 @@ public:
 	static Interface* create();
 	bool init();
 	void start();
+	
 	static void pauseScene(cocos2d::Ref* pSender); //用于按键暂停场景
 	static void pausescene(); //用于胜利/失败后暂停场景
 	static void resumeScene(cocos2d::Ref* pSender);
@@ -35,6 +36,10 @@ public:
 	void game_next();
 	void playmusic();
 	void tool_doc();
+	void tool_pill();
+	void tool_vaccine();
+	int get_tool();
+	static int tool;//使用的道具
 private:
 	static BattleScene* gamescene;
 	Label* enemylife_score;
@@ -50,4 +55,5 @@ private:
 	bool Mflag;//限制成功失败音效循环播放
 	bool ismusic;//判断音乐开或关
 	int stage;//剧情阶段
+	
 };

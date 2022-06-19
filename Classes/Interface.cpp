@@ -57,6 +57,7 @@ bool Interface::init()
 	Mflag = 0;
 	ismusic = 1;
 	stage = 0;
+	tool = 0;
 	char str[20] = "";
 
 
@@ -229,11 +230,11 @@ void Interface::gameinterface()
 	btn1_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::tool_doc, this));
 
 	auto btn2_combat_UI = (Button*)combat_UI->getChildByTag(4)->getChildByTag(6);
-	btn2_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::choosesecond, this));
+	btn2_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::tool_pill, this));
 	btn2_combat_UI->setVisible(false);
 
 	auto btn3_combat_UI = (Button*)combat_UI->getChildByTag(4)->getChildByTag(7);
-	btn3_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::choosethird, this));
+	btn3_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::tool_vaccine, this));
 	btn3_combat_UI->setVisible(false);
 
 	////ËùÊ£µÐÈËÊý
@@ -684,4 +685,21 @@ void Interface::tool_doc()
 {
 	this->getChildByTag(500)->setVisible(true);
 	this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(false);
+}
+
+void Interface::tool_pill()
+{
+	tool = 2;
+	gamescene->player_life++;
+	this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(6)->setVisible(false);
+}
+
+void Interface::tool_vaccine()
+{
+	tool = 3;
+	this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(false);
+}
+int Interface::get_tool()
+{
+	return this->tool;
 }

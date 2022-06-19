@@ -1,7 +1,7 @@
 #include "Tank.h"
 #include "BattleScene.h"
 #include "MapManager.h"
-
+#include"Interface.h"
 Tank* Tank::create(int ID, float x, float y, int dir, int kind, int level)
 {
 	Tank* pRet = new(std::nothrow) Tank();
@@ -234,7 +234,10 @@ void Tank::fire()
 
 void Tank::hurt()
 {
-	this->setLife(this->getLife() - 1);
+	if(Interface::tool!=3)
+		this->setLife(this->getLife() - 1);
+	else
+		this->setLife(this->getLife() - 2);
 	if (this->getLife() < this->getLevel()) // 靠生命值判断是否显示受伤动作
 	{
         auto tintToRed = TintTo ::create(0.05f, 255, 0, 0);
