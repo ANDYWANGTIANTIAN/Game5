@@ -34,6 +34,7 @@ public:
 	void successOrFail();
 	void game_next();
 	void playmusic();
+	void tool_doc();
 private:
 	static BattleScene* gamescene;
 	Label* enemylife_score;

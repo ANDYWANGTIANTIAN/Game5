@@ -4,14 +4,14 @@
 	<dict>
 		<key>frames</key>
 		<dict>
-			<key>tools_bg.png</key>
+			<key>tool_bg.png</key>
 			<dict>
 				<key>width</key>
-				<integer>200</integer>
+				<integer>140</integer>
 				<key>height</key>
 				<integer>672</integer>
 				<key>originalWidth</key>
-				<integer>200</integer>
+				<integer>140</integer>
 				<key>originalHeight</key>
 				<integer>672</integer>
 				<key>x</key>
@@ -34,7 +34,7 @@
 				<key>originalHeight</key>
 				<integer>70</integer>
 				<key>x</key>
-				<integer>202</integer>
+				<integer>142</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -53,7 +53,7 @@
 				<key>originalHeight</key>
 				<integer>70</integer>
 				<key>x</key>
-				<integer>274</integer>
+				<integer>214</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -72,7 +72,7 @@
 				<key>originalHeight</key>
 				<integer>70</integer>
 				<key>x</key>
-				<integer>346</integer>
+				<integer>286</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -91,7 +91,7 @@
 				<key>originalHeight</key>
 				<integer>70</integer>
 				<key>x</key>
-				<integer>418</integer>
+				<integer>358</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -110,7 +110,7 @@
 				<key>originalHeight</key>
 				<integer>70</integer>
 				<key>x</key>
-				<integer>490</integer>
+				<integer>430</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>
@@ -129,7 +129,7 @@
 				<key>originalHeight</key>
 				<integer>70</integer>
 				<key>x</key>
-				<integer>562</integer>
+				<integer>502</integer>
 				<key>y</key>
 				<integer>0</integer>
 				<key>offsetX</key>

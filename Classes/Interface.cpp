@@ -161,18 +161,18 @@ void Interface::update(float delta)
 {
 	successOrFail();//判断输赢
 
-	//更新所剩敌人数
-	char str[20] = "";
-	itoa(gamescene->enemy_life + gamescene->enemy_left, str, 10);
-	enemylife_score->setString(str);
+	////更新所剩敌人数
+	//char str[20] = "";
+	//itoa(gamescene->enemy_life + gamescene->enemy_left, str, 10);
+	//enemylife_score->setString(str);
 
-	//更新玩家剩余生命数
-	itoa(gamescene->player_life, str, 10);
-	palyerlife_score->setString(str);
+	////更新玩家剩余生命数
+	//itoa(gamescene->player_life, str, 10);
+	//palyerlife_score->setString(str);
 
-	//更新得分
-	itoa(player_score, str, 10);
-	score_sum->setString(str);
+	////更新得分
+	//itoa(player_score, str, 10);
+	//score_sum->setString(str);
 
 }
 
@@ -218,81 +218,109 @@ void Interface::gameinterface()
 	flag = 1;
 	char str[20] = "";
 
-	//所剩敌人数
-	auto enemylife = Label::createWithTTF("Enemy:", "fonts/arial.ttf", 24);
-	enemylife->setPosition(Vec2(1020, 630));
-	enemylife->setTag(100);
-	this->addChild(enemylife, 1);
 
-	itoa(gamescene->enemy_life, str, 10);
-	enemylife_score = Label::createWithTTF(str, "fonts/arial.ttf", 24);
-	enemylife_score->setPosition(Vec2(1020, 580));
-	enemylife_score->setTag(101);
-	this->addChild(enemylife_score, 1);
+	//选择关卡界面
+	auto combat_UI = GUIReader::getInstance()->widgetFromJsonFile("006_1/combat_1.ExportJson");
+	addChild(combat_UI);
+	combat_UI->setTag(1006);
+	combat_UI->setVisible(true);
 
-	//玩家生命数
-	auto palyerlife = Label::createWithTTF("Life:", "fonts/arial.ttf", 24);
-	palyerlife->setPosition(Vec2(1020, 530));
-	palyerlife->setTag(102);
-	this->addChild(palyerlife, 1);
+	auto btn1_combat_UI = (Button*)combat_UI->getChildByTag(4)->getChildByTag(5);
+	btn1_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::tool_doc, this));
 
-	itoa(gamescene->player_life, str, 10);
-	palyerlife_score = Label::createWithTTF(str, "fonts/arial.ttf", 24);
-	palyerlife_score->setPosition(Vec2(1020, 480));
-	palyerlife_score->setTag(103);
-	this->addChild(palyerlife_score, 1);
+	auto btn2_combat_UI = (Button*)combat_UI->getChildByTag(4)->getChildByTag(6);
+	btn2_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::choosesecond, this));
+	btn2_combat_UI->setVisible(false);
 
-	//分数
-	auto score = Label::createWithTTF("Your Score", "fonts/arial.ttf", 24);
-	score->setPosition(Vec2(1020, 430));
-	score->setTag(104);
-	this->addChild(score, 1);
+	auto btn3_combat_UI = (Button*)combat_UI->getChildByTag(4)->getChildByTag(7);
+	btn3_combat_UI->addClickEventListener(CC_CALLBACK_0(Interface::choosethird, this));
+	btn3_combat_UI->setVisible(false);
 
-	itoa(player_score, str, 10);
-	score_sum = Label::createWithTTF(str, "fonts/arial.ttf", 24);
-	score_sum->setPosition(Vec2(1020, 380));
-	score_sum->setTag(109);
-	this->addChild(score_sum, 1);
+	////所剩敌人数
+	//auto enemylife = Label::createWithTTF("Enemy:", "fonts/arial.ttf", 24);
+	//enemylife->setPosition(Vec2(1020, 630));
+	//enemylife->setTag(100);
+	//enemylife->setVisible(false);
+	//this->addChild(enemylife, 1);
 
-	//重开按钮
-	auto replay = Label::createWithTTF("Replay", "fonts/arial.ttf", 24);
-	auto replayItem = MenuItemLabel::create(replay, CC_CALLBACK_0(Interface::replay, this));
-	replayItem->setPosition(Vec2(470, -225));
-	auto menu3 = Menu::create(replayItem, NULL);
-	this->addChild(menu3, 1);
-	menu3->setTag(108);
+	//itoa(gamescene->enemy_life, str, 10);
+	//enemylife_score = Label::createWithTTF(str, "fonts/arial.ttf", 24);
+	//enemylife_score->setPosition(Vec2(1020, 580));
+	//enemylife_score->setTag(101);
+	//enemylife_score->setVisible(false);
+	//this->addChild(enemylife_score, 1);
 
-	//暂停按钮
-	auto pause = Label::createWithTTF("Pause", "fonts/arial.ttf", 24);
-	auto pauseItem = MenuItemLabel::create(pause, CC_CALLBACK_0(Interface::pauseScene, this));
-	pauseItem->setPosition(Vec2(470, -75));
-	auto menu2 = Menu::create(pauseItem, NULL);
-	this->addChild(menu2, 1);
-	menu2->setTag(105);
+	////玩家生命数
+	//auto palyerlife = Label::createWithTTF("Life:", "fonts/arial.ttf", 24);
+	//palyerlife->setPosition(Vec2(1020, 530));
+	//palyerlife->setTag(102);
+	//palyerlife->setVisible(false);
+	//this->addChild(palyerlife, 1);
 
-	//恢复按钮
-	auto resume = Label::createWithTTF("Continue", "fonts/arial.ttf", 24);
-	auto resumeItem = MenuItemLabel::create(resume, CC_CALLBACK_0(Interface::resumeScene, this));
-	resumeItem->setPosition(Vec2(470, -150));
-	auto menu1 = Menu::create(resumeItem, NULL);
-	this->addChild(menu1, 1);
-	menu1->setTag(106);
+	//itoa(gamescene->player_life, str, 10);
+	//palyerlife_score = Label::createWithTTF(str, "fonts/arial.ttf", 24);
+	//palyerlife_score->setPosition(Vec2(1020, 480));
+	//palyerlife_score->setTag(103);
+	//palyerlife_score->setVisible(false);
+	//this->addChild(palyerlife_score, 1);
 
-	//返回按钮
-	auto return_main = Label::createWithTTF("Return", "fonts/arial.ttf", 24);
-	auto returnItem = MenuItemLabel::create(return_main, CC_CALLBACK_0(Interface::game_return, this));
-	returnItem->setPosition(Vec2(470, -300));
-	auto menu = Menu::create(returnItem, NULL);
-	this->addChild(menu, 1);
-	menu->setTag(107);
+	////分数
+	//auto score = Label::createWithTTF("Your Score", "fonts/arial.ttf", 24);
+	//score->setPosition(Vec2(1020, 430));
+	//score->setTag(104);
+	//score->setVisible(false);
+	//this->addChild(score, 1);
 
-	//音乐开关按钮
-	auto music = Label::createWithTTF("Musicset", "fonts/arial.ttf", 24);
-	auto musicItem = MenuItemLabel::create(music, CC_CALLBACK_0(Interface::playmusic, this));
-	musicItem->setPosition(Vec2(470, 0));
-	auto menu8 = Menu::create(musicItem, NULL);
-	this->addChild(menu8, 1);
-	menu8->setTag(110);
+	//itoa(player_score, str, 10);
+	//score_sum = Label::createWithTTF(str, "fonts/arial.ttf", 24);
+	//score_sum->setPosition(Vec2(1020, 380));
+	//score_sum->setTag(109);
+	//this->addChild(score_sum, 1);
+
+	////重开按钮
+	//auto replay = Label::createWithTTF("Replay", "fonts/arial.ttf", 24);
+	//auto replayItem = MenuItemLabel::create(replay, CC_CALLBACK_0(Interface::replay, this));
+	//replayItem->setPosition(Vec2(470, -225));
+	//auto menu3 = Menu::create(replayItem, NULL);
+	//this->addChild(menu3, 1);
+	//menu3->setTag(108);
+	//menu3->setVisible(false);
+
+	////暂停按钮
+	//auto pause = Label::createWithTTF("Pause", "fonts/arial.ttf", 24);
+	//auto pauseItem = MenuItemLabel::create(pause, CC_CALLBACK_0(Interface::pauseScene, this));
+	//pauseItem->setPosition(Vec2(470, -75));
+	//auto menu2 = Menu::create(pauseItem, NULL);
+	//this->addChild(menu2, 1);
+	//menu2->setTag(105);
+	//menu2->setVisible(false);
+
+	////恢复按钮
+	//auto resume = Label::createWithTTF("Continue", "fonts/arial.ttf", 24);
+	//auto resumeItem = MenuItemLabel::create(resume, CC_CALLBACK_0(Interface::resumeScene, this));
+	//resumeItem->setPosition(Vec2(470, -150));
+	//auto menu1 = Menu::create(resumeItem, NULL);
+	//this->addChild(menu1, 1);
+	//menu1->setTag(106);
+	//menu1->setVisible(false);
+
+	////返回按钮
+	//auto return_main = Label::createWithTTF("Return", "fonts/arial.ttf", 24);
+	//auto returnItem = MenuItemLabel::create(return_main, CC_CALLBACK_0(Interface::game_return, this));
+	//returnItem->setPosition(Vec2(470, -300));
+	//auto menu = Menu::create(returnItem, NULL);
+	//this->addChild(menu, 1);
+	//menu->setTag(107);
+	//menu->setVisible(false);
+
+	////音乐开关按钮
+	//auto music = Label::createWithTTF("Musicset", "fonts/arial.ttf", 24);
+	//auto musicItem = MenuItemLabel::create(music, CC_CALLBACK_0(Interface::playmusic, this));
+	//musicItem->setPosition(Vec2(470, 0));
+	//auto menu8 = Menu::create(musicItem, NULL);
+	//this->addChild(menu8, 1);
+	//menu8->setTag(110);
+	//menu8->setVisible(false);
 
 	//成功提示
 	auto successflag = Label::createWithTTF("You Win!", "fonts/arial.ttf", 24);
@@ -470,7 +498,7 @@ void Interface::choosefirst()
 	Mflag = 0;
 	level = 1;
 	this->getChildByTag(1003)->setVisible(false);
-	this->getChildByTag(500)->setVisible(true);
+	this->getChildByTag(500)->setVisible(false);
 	gamescene = BattleScene::create(level);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
@@ -478,8 +506,9 @@ void Interface::choosefirst()
 		gameinterface();
 	else
 	{
-		for (int i = 100; i < 111; i++)
-			this->getChildByTag(i)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(6)->setVisible(false);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(false);
 	}
 	this->scheduleUpdate();
 }
@@ -490,7 +519,7 @@ void Interface::choosesecond()
 	Mflag = 0;
 	level = 2;
 	this->getChildByTag(1003)->setVisible(false);
-	this->getChildByTag(500)->setVisible(true);
+	this->getChildByTag(500)->setVisible(false);
 	gamescene = BattleScene::create(level);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
@@ -498,8 +527,9 @@ void Interface::choosesecond()
 		gameinterface();
 	else
 	{
-		for (int i = 100; i < 111; i++)
-			this->getChildByTag(i)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(6)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(false);
 	}
 	this->scheduleUpdate();
 }
@@ -510,7 +540,7 @@ void Interface::choosethird()
 	Mflag = 0;
 	level = 3;
 	this->getChildByTag(1003)->setVisible(false);
-	this->getChildByTag(500)->setVisible(true);
+	this->getChildByTag(500)->setVisible(false);
 	gamescene = BattleScene::create(level);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
@@ -518,8 +548,9 @@ void Interface::choosethird()
 		gameinterface();
 	else
 	{
-		for (int i = 100; i < 111; i++)
-			this->getChildByTag(i)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(6)->setVisible(true);
+		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(true);
 	}
 	this->scheduleUpdate();
 }
@@ -649,4 +680,8 @@ void Interface::playmusic()
 	}
 }
 
-
+void Interface::tool_doc()
+{
+	this->getChildByTag(500)->setVisible(true);
+	this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(false);
+}
