@@ -467,8 +467,8 @@ void Interface::game_return()
 	updateranking_List();
 	player_score = 0;
 	Wflag = 0;
-	for (int i = 100; i < 111; i++)
-		this->getChildByTag(i)->setVisible(false);	
+	//for (int i = 100; i < 111; i++)
+		//this->getChildByTag(i)->setVisible(false);	
 	this->getChildByTag(200)->setVisible(false);
 	this->getChildByTag(201)->setVisible(false);
 	this->getChildByTag(202)->setVisible(false);
@@ -476,8 +476,11 @@ void Interface::game_return()
 	this->getChildByTag(204)->setVisible(false);
 	this->getChildByTag(205)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
+	this->getChildByTag(1006)->getChildByTag(4)->setVisible(false);
 	this->getChildByTag(1001)->setVisible(true);	
 	gamescene->removeFromParent();
+	auto choose_UI = this->getChildByTag(1003);
+	choose_UI->setVisible(true);
 }
 
 //显示排行榜界面
@@ -502,6 +505,7 @@ void Interface::choosefirst()
 {
 	Mflag = 0;
 	level = 1;
+	this->getChildByTag(1001)->setVisible(false);
 	this->getChildByTag(1003)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
 	gamescene = BattleScene::create(level);
@@ -523,8 +527,10 @@ void Interface::choosesecond()
 {
 	Mflag = 0;
 	level = 2;
+	this->getChildByTag(1001)->setVisible(false);
 	this->getChildByTag(1003)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
+	this->getChildByTag(1006)->getChildByTag(4)->setVisible(true);
 	gamescene = BattleScene::create(level);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
@@ -544,8 +550,10 @@ void Interface::choosethird()
 {
 	Mflag = 0;
 	level = 3;
+	this->getChildByTag(1001)->setVisible(false);
 	this->getChildByTag(1003)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
+	this->getChildByTag(1006)->getChildByTag(4)->setVisible(true);
 	gamescene = BattleScene::create(level);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
