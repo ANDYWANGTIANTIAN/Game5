@@ -38,7 +38,6 @@ public:
 	void tool_doc();
 	void tool_pill();
 	void tool_vaccine();
-	int get_tool();
 	static int tool;//使用的道具
 private:
 	static BattleScene* gamescene;

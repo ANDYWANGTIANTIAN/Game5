@@ -2,6 +2,7 @@
 #include "BattleScene.h"
 #include "MapManager.h"
 #include"Interface.h"
+
 Tank* Tank::create(int ID, float x, float y, int dir, int kind, int level)
 {
 	Tank* pRet = new(std::nothrow) Tank();

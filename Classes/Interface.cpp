@@ -4,8 +4,12 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <windows.h> 
+#include <windows.h>
+
 using namespace std;
+
+int Interface::tool;
+
 string GBKToUTF8(const std::string& strGBK)
 {
 	string strOutUTF8 = "";
@@ -698,8 +702,4 @@ void Interface::tool_vaccine()
 {
 	tool = 3;
 	this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(false);
-}
-int Interface::get_tool()
-{
-	return this->tool;
 }
