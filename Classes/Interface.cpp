@@ -666,7 +666,6 @@ void Interface::successOrFail()
 	else if ((gamescene->enemy_left + gamescene->enemy_life )<= 0 && Wflag)
 	{
 		pausescene();
-		stage++;
 		this->getChildByTag(200)->setVisible(true);
 		this->getChildByTag(204)->setVisible(true);
 		this->getChildByTag(205)->setVisible(true);
