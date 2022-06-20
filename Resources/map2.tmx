@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-up" width="60" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="12">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-up" width="60" height="40" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="12">
  <tileset firstgid="1" name="base" tilewidth="16" tileheight="16" tilecount="28" columns="14">
   <image source="tile.png" width="224" height="32"/>
  </tileset>
+ <imagelayer id="6" name="图像图层 1">
+  <image source="pink2.jpg" width="6000" height="4000"/>
+ </imagelayer>
  <layer id="1" name="back" width="60" height="40">
   <data>
    <tile gid="5"/>
