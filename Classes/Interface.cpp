@@ -5,6 +5,9 @@
 #include <string>
 #include <fstream>
 #include <windows.h>
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 using namespace std;
 
@@ -134,7 +137,7 @@ bool Interface::init()
 	this->addChild(ThirdScore, 1);
 
 	//选择关卡界面
-	auto choose_UI = GUIReader::getInstance()->widgetFromJsonFile("005_1/worldUI_1.ExportJson");
+	auto choose_UI = GUIReader::getInstance()->widgetFromJsonFile("worldUI_1/worldUI_1.ExportJson");
 	addChild(choose_UI);
 	choose_UI->setTag(1003);
 	choose_UI->setVisible(false);
@@ -150,8 +153,11 @@ bool Interface::init()
 
 	auto textView = (Text*)choose_UI->getChildByTag(2)->getChildByTag(16);
 	textView->setVisible(true);
-	textView->setFontSize(20);
-	textView->setText(GBKToUTF8("武汉出现不明原因发热病例"));
+	textView->setFontSize(12);
+	textView->setText(GBKToUTF8("（公元二〇一九年的某天，一种病毒悄然进入人类世界）"));
+
+	auto doctor = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(17);
+	doctor->setVisible(false);
 	
 	auto text_bg = (ImageView*)choose_UI->getChildByTag(2)->getChildByTag(4);
 	text_bg->addClickEventListener(CC_CALLBACK_0(Interface::next_stage, this));
@@ -184,34 +190,108 @@ void Interface::update(float delta)
 void Interface::next_stage() 
 {
 	auto textView = (Text*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(16);
-	auto btn1_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(6);
-	auto btn2_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(13);
-	auto btn3_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(14);
+	auto doctor = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(17);
 	auto covid1 = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(8);
 	auto covid2 = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(12);
 	auto covid3 = (ImageView*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(15);
+	auto btn1_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(6);
+	auto btn2_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(13);
+	auto btn3_choose_UI = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(14);
+
 	textView->setVisible(true);
-	
+
+	SimpleAudioEngine::getInstance()->playEffect("music/next.wav", false);
+
 	stage++;
 	switch (stage)
 	{
 	case 1:
-		textView->setFontSize(20);
-		textView->setText(GBKToUTF8("武汉出现不明原因发热病例"));
-		btn1_choose_UI->setVisible(true);
-		covid1->setVisible(true);
+		doctor->setVisible(true);
+		textView->setText(GBKToUTF8("你好，我是流行病学专家史蒂夫·莱里克！"));
 		break;
 	case 2:
-		textView->setFontSize(20);
-		textView->setText(GBKToUTF8("欧洲成为疫情重灾区"));
-		btn2_choose_UI->setVisible(true);
-		covid2->setVisible(true);
+		textView->setText(GBKToUTF8("来自异世界的旅行者，地球现在遇到了一些麻烦..."));
 		break;
 	case 3:
-		textView->setFontSize(20);
-		textView->setText(GBKToUTF8("德尔塔使美国陷入人道主义危机"));
-		btn3_choose_UI->setVisible(true);
+		textView->setText(GBKToUTF8("在中国发现了一种不明原因肺炎，而且能人传人..."));
+		covid1->setVisible(true);
+		break;
+	case 4:
+		textView->setText(GBKToUTF8("该病已知的首名病人于中国的湖北省武汉市确诊..."));
+		break;
+	case 5:
+		textView->setText(GBKToUTF8("现在情况很紧急，我们对这种病毒没有任何了解..."));
+		break;
+	case 6:
+		textView->setText(GBKToUTF8("请你进入病人的肺中与病毒战斗，并帮我们调查..."));
+		break;
+	case 7:
+		textView->setText(GBKToUTF8("这个病毒，现在你可以借助我们医护资源来对抗它。"));
+		btn1_choose_UI->setVisible(true);
+		break;
+	case 8:
+		textView->setText(GBKToUTF8("好险，靠病人的自身免疫系统和全力治疗康复了。"));
+		break;
+	case 9:
+		textView->setText(GBKToUTF8("据分析，这是一种新型的冠状病毒，是一种具有..."));
+		break;
+	case 10:
+		textView->setText(GBKToUTF8("包膜的正链单股RNA病毒，在人群中有较强传染性。"));
+		break;
+	case 11:
+		textView->setText(GBKToUTF8("世卫组织将其命名为SARS-CoV-2，疾病名为COVID-19。"));
+		break;
+	case 12:
+		textView->setText(GBKToUTF8("几个月过去了，世卫组织已将其评估为「全球大流行病」。"));
+		covid2->setVisible(true);
+		break;
+	case 13:
+		textView->setText(GBKToUTF8("现在中国的疫情已经稳定了下来，能否请你到当前疫情..."));
+		break;
+	case 14:
+		textView->setText(GBKToUTF8("最严重的欧洲地区出趟差，继续调查一下这种病毒吧。"));
+		break;
+	case 15:
+		textView->setText(GBKToUTF8("我们发现了一种药物对症状有缓解作用，不妨试试！"));
+		btn2_choose_UI->setVisible(true);
+		break;
+	case 16:
+		textView->setText(GBKToUTF8("看来药物对症治疗也有用呢，看来疫苗的效果值得期待..."));
+		break;
+	case 17:
+		textView->setText(GBKToUTF8("哎呀！不小心说漏嘴了..."));
+		break;
+	case 18:
+		textView->setText(GBKToUTF8("没错，各国的研发团队已经研究出多款不同技术路线的疫苗..."));
+		break;
+	case 19:
+		textView->setText(GBKToUTF8("很多国家也开启了紧急授权使用新冠疫苗，并全民大规模接种。"));
+		break;
+	case 20:
+		textView->setText(GBKToUTF8("从社会层面说，新冠疫苗能够有效阻断疫情传播链..."));
+		break;
+	case 21:
+		textView->setText(GBKToUTF8("从个人层面说，接种疫苗可以大大降低重症和死亡率..."));
+		break;
+	case 22:
+		textView->setText(GBKToUTF8("无论对自己还是对他人都是一种保护。"));
+		break;
+	case 23:
+		textView->setText(GBKToUTF8("截至当前，全球新冠病毒病已经累计确诊逾五亿例..."));
 		covid3->setVisible(true);
+		break;
+	case 24:
+		textView->setText(GBKToUTF8("疫情形势依然严峻，德尔塔、奥密克戎变异株纷至沓来..."));
+		break;
+	case 25:
+		textView->setText(GBKToUTF8("但这一次我们有了疫苗，一定可以找到一条最优的道路！"));
+		btn3_choose_UI->setVisible(true);
+		break;
+	case 26:
+		textView->setText(GBKToUTF8("我们成功了！希望新冠疫情能在人类的共同努力下早日结束！"));
+		break;
+	case 27:
+		return_mainscene();
 		break;
 	default:
 		break;
@@ -223,7 +303,7 @@ void Interface::gameinterface()
 	flag = 1;
 	char str[20] = "";
 
-	//选择关卡界面
+	//战斗界面
 	auto combat_UI = GUIReader::getInstance()->widgetFromJsonFile("006_1/combat_1.ExportJson");
 	addChild(combat_UI);
 	combat_UI->setTag(1006);
@@ -327,62 +407,81 @@ void Interface::gameinterface()
 	//menu8->setVisible(false);
 
 	//成功提示
-	auto successflag = Label::createWithTTF("You Win!", "fonts/arial.ttf", 24);
+	auto successflag = Label::createWithTTF(GBKToUTF8("无伤治愈！"), "fonts/simhei.ttf", 24);
 	successflag->setScale(3);
-	successflag->setColor(Color3B(255, 255, 0));
+	successflag->setColor(Color3B(255, 255, 255));
 	successflag->setPosition(Vec2(480, 400));
 	successflag->setTag(200);
 	successflag->setVisible(false);
 	this->addChild(successflag, 20);
 
-	auto success_return_main = Label::createWithTTF("Return", "fonts/arial.ttf", 24);
+	auto success_return_main = Label::createWithTTF(GBKToUTF8("返回剧情"), "fonts/simhei.ttf", 24);
 	auto successreturnItem = MenuItemLabel::create(success_return_main, CC_CALLBACK_0(Interface::game_return, this));
 	successreturnItem->setPosition(Vec2(50, -50));
 	successreturnItem->setScale(2);
-	successreturnItem->setColor(Color3B(255, 255, 0));
+	successreturnItem->setColor(Color3B(255, 255, 255));
 	auto menu6 = Menu::create(successreturnItem, NULL);
 	this->addChild(menu6, 1);
 	menu6->setTag(204);
 	menu6->setVisible(false);
 
-	auto success_next = Label::createWithTTF("Next", "fonts/arial.ttf", 24);
+	auto success_next = Label::createWithTTF(GBKToUTF8("下一关卡"), "fonts/simhei.ttf", 24);
 	auto nextItem = MenuItemLabel::create(success_next, CC_CALLBACK_0(Interface::game_next, this));
 	nextItem->setPosition(Vec2(-170, -50));
 	nextItem->setScale(2);
-	nextItem->setColor(Color3B(255, 255, 0));
+	nextItem->setColor(Color3B(255, 255, 255));
 	auto menu7 = Menu::create(nextItem, NULL);
 	this->addChild(menu7, 1);
 	menu7->setTag(205);
 	menu7->setVisible(false);
 
 	//失败提示
-	auto failflag1 = Label::createWithTTF("You Fail!", "fonts/arial.ttf", 24);
+	auto failflag1 = Label::createWithTTF(GBKToUTF8("病毒攻陷！"), "fonts/simhei.ttf", 24);
 	failflag1->setScale(3);
-	failflag1->setColor(Color3B(255, 0, 0));
+	failflag1->setColor(Color3B(255, 255, 255));
 	failflag1->setPosition(Vec2(480, 400));
 	failflag1->setTag(201);
 	failflag1->setVisible(false);
 	this->addChild(failflag1, 20);
 	
-	auto fail_replay = Label::createWithTTF("Replay", "fonts/arial.ttf", 24);
+	auto fail_replay = Label::createWithTTF(GBKToUTF8("再试一次"), "fonts/simhei.ttf", 24);
 	auto failreplayItem = MenuItemLabel::create(fail_replay, CC_CALLBACK_0(Interface::replay, this));
 	failreplayItem->setPosition(Vec2(-170, -50));
 	failreplayItem->setScale(2);
-	failreplayItem->setColor(Color3B(255, 0, 0));
+	failreplayItem->setColor(Color3B(255, 255, 255));
 	auto menu4 = Menu::create(failreplayItem, NULL);
 	this->addChild(menu4, 1);
 	menu4->setTag(202);
 	menu4->setVisible(false);
 
-	auto fail_return_main = Label::createWithTTF("Return", "fonts/arial.ttf", 24);
+	auto fail_return_main = Label::createWithTTF(GBKToUTF8("返回剧情"), "fonts/simhei.ttf", 24);
 	auto failreturnItem = MenuItemLabel::create(fail_return_main, CC_CALLBACK_0(Interface::game_return, this));
 	failreturnItem->setPosition(Vec2(50, -50));
 	failreturnItem->setScale(2);
-	failreturnItem->setColor(Color3B(255, 0, 0));
+	failreturnItem->setColor(Color3B(255, 255, 255));
 	auto menu5 = Menu::create(failreturnItem, NULL);
 	this->addChild(menu5, 1);
 	menu5->setTag(203);
 	menu5->setVisible(false);
+
+	auto success_panel = GUIReader::getInstance()->widgetFromJsonFile("combat_win_1/combat_win_1.ExportJson");
+	addChild(success_panel);
+	success_panel->setTag(1070);
+	success_panel->setVisible(false);
+
+	auto success_return_bt = (Button*)success_panel->getChildByTag(2)->getChildByTag(4);
+	success_return_bt->addClickEventListener(CC_CALLBACK_0(Interface::game_return, this));
+
+	auto fail_panel = GUIReader::getInstance()->widgetFromJsonFile("combat_lose_1/combat_lose_1.ExportJson");
+	addChild(fail_panel);
+	fail_panel->setTag(1080);
+	fail_panel->setVisible(false);
+
+	auto fail_replay_bt = (Button*)fail_panel->getChildByTag(2)->getChildByTag(3);
+	fail_replay_bt->addClickEventListener(CC_CALLBACK_0(Interface::replay, this));
+
+	auto fail_return_bt = (Button*)fail_panel->getChildByTag(2)->getChildByTag(4);
+	fail_return_bt->addClickEventListener(CC_CALLBACK_0(Interface::game_return, this));
 
 }
 
@@ -419,18 +518,19 @@ void Interface::updateranking_List()
 void Interface::replay()
 {
 	//Mflag = 0;
-	this->getChildByTag(201)->setVisible(false);
-	this->getChildByTag(202)->setVisible(false);
-	this->getChildByTag(203)->setVisible(false);
+	//this->getChildByTag(201)->setVisible(false);
+	//this->getChildByTag(202)->setVisible(false);
+	//this->getChildByTag(203)->setVisible(false);
+	this->getChildByTag(1080)->setVisible(false);
 	//this->getChildByTag(500)->setVisible(false);
 	//updateranking_List();
 	//player_score = 0;
 	gamescene->removeFromParent();
 	//gamescene = BattleScene::create(level);
 	//this->getParent()->addChild(gamescene);
-	if (stage == 1) choosefirst();
-	if (stage == 2) choosesecond();
-	if (stage == 3) choosethird();
+	if (level == 1) choosefirst();
+	if (level == 2) choosesecond();
+	if (level == 3) choosethird();
 }
 
 //进入下一关
@@ -440,9 +540,10 @@ void Interface::game_next()
 	if (level < 3)
 	{
 		level++;
-		this->getChildByTag(200)->setVisible(false);
-		this->getChildByTag(204)->setVisible(false);
-		this->getChildByTag(205)->setVisible(false);
+		//this->getChildByTag(200)->setVisible(false);
+		//this->getChildByTag(204)->setVisible(false);
+		//this->getChildByTag(205)->setVisible(false);
+		this->getChildByTag(1070)->setVisible(false);
 		gamescene->removeFromParent();
 		gamescene = BattleScene::create(level);
 		this->getParent()->addChild(gamescene);
@@ -466,22 +567,25 @@ void Interface::return_mainscene()
 //返回
 void Interface::game_return()
 {
-	level = 1;
+	//level = 1;
 	updateranking_List();
 	player_score = 0;
 	Wflag = 0;
 	//for (int i = 100; i < 111; i++)
 		//this->getChildByTag(i)->setVisible(false);	
-	this->getChildByTag(200)->setVisible(false);
-	this->getChildByTag(201)->setVisible(false);
-	this->getChildByTag(202)->setVisible(false);
-	this->getChildByTag(203)->setVisible(false);
-	this->getChildByTag(204)->setVisible(false);
-	this->getChildByTag(205)->setVisible(false);
+	//this->getChildByTag(200)->setVisible(false);
+	//this->getChildByTag(201)->setVisible(false);
+	//this->getChildByTag(202)->setVisible(false);
+	//this->getChildByTag(203)->setVisible(false);
+	this->getChildByTag(1070)->setVisible(false);
+	this->getChildByTag(1080)->setVisible(false);
+	//this->getChildByTag(204)->setVisible(false);
+	//this->getChildByTag(205)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
 	this->getChildByTag(1006)->getChildByTag(4)->setVisible(false);
 	this->getChildByTag(1001)->setVisible(true);	
 	gamescene->removeFromParent();
+	next_stage();
 	auto choose_UI = this->getChildByTag(1003);
 	choose_UI->setVisible(true);
 }
@@ -509,15 +613,20 @@ void Interface::choosefirst()
 	Mflag = 0;
 	level = 1;
 	this->getChildByTag(1001)->setVisible(false);
+	auto bt1 = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(6);
+	bt1->setBright(false);
+	bt1->setEnabled(false);
 	this->getChildByTag(1003)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
 	gamescene = BattleScene::create(level);
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/level1.mp3", true);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
 	if (flag == 0)
 		gameinterface();
 	else
 	{
+		this->getChildByTag(1006)->getChildByTag(4)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(6)->setVisible(false);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(false);
@@ -531,16 +640,20 @@ void Interface::choosesecond()
 	Mflag = 0;
 	level = 2;
 	this->getChildByTag(1001)->setVisible(false);
+	auto bt2 = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(13);
+	bt2->setBright(false);
+	bt2->setEnabled(false);
 	this->getChildByTag(1003)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
-	this->getChildByTag(1006)->getChildByTag(4)->setVisible(true);
 	gamescene = BattleScene::create(level);
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/level2.mp3", true);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
 	if (flag == 0)
 		gameinterface();
 	else
 	{
+		this->getChildByTag(1006)->getChildByTag(4)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(6)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(false);
@@ -554,16 +667,20 @@ void Interface::choosethird()
 	Mflag = 0;
 	level = 3;
 	this->getChildByTag(1001)->setVisible(false);
+	auto bt3 = (Button*)this->getChildByTag(1003)->getChildByTag(2)->getChildByTag(14);
+	bt3->setBright(false);
+	bt3->setEnabled(false);
 	this->getChildByTag(1003)->setVisible(false);
 	this->getChildByTag(500)->setVisible(false);
-	this->getChildByTag(1006)->getChildByTag(4)->setVisible(true);
 	gamescene = BattleScene::create(level);
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/level3.mp3", true);
 	Wflag = 1;
 	this->getParent()->addChild(gamescene);
 	if (flag == 0)
 		gameinterface();
 	else
 	{
+		this->getChildByTag(1006)->getChildByTag(4)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(5)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(6)->setVisible(true);
 		this->getChildByTag(1006)->getChildByTag(4)->getChildByTag(7)->setVisible(true);
@@ -591,6 +708,7 @@ void Interface::start()
 	this->getChildByTag(1001)->setVisible(false);
 	this->getChildByTag(1003)->setVisible(true);
 	gamescene = BattleScene::create(level);
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/bgm.mp3", true);
 	this->getParent()->addChild(gamescene);
 	if (flag == 0)
 		gameinterface();
@@ -657,21 +775,25 @@ void Interface::successOrFail()
 	if ((gamescene->player_life <= 0 || gamescene->guard_life <= 0) && Wflag)
 	{
 		pausescene();
-		this->getChildByTag(201)->setVisible(true);
-		this->getChildByTag(202)->setVisible(true);
-		this->getChildByTag(203)->setVisible(true);
+		//this->getChildByTag(201)->setVisible(true);
+		//this->getChildByTag(202)->setVisible(true);
+		//this->getChildByTag(203)->setVisible(true);
+		this->getChildByTag(1080)->setVisible(true);
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 		if (Mflag == 0)
 		{
-			SimpleAudioEngine::getInstance()->playEffect("music/fail.mp3");
+			SimpleAudioEngine::getInstance()->playEffect("music/lose.wav");
 			Mflag = 1;
 		}
 	}
 	else if ((gamescene->enemy_left + gamescene->enemy_life )<= 0 && Wflag)
 	{
 		pausescene();
-		this->getChildByTag(200)->setVisible(true);
-		this->getChildByTag(204)->setVisible(true);
-		this->getChildByTag(205)->setVisible(true);
+		//this->getChildByTag(200)->setVisible(true);
+		//this->getChildByTag(204)->setVisible(true);
+		//this->getChildByTag(205)->setVisible(true);
+		this->getChildByTag(1070)->setVisible(true);
+		SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 		if (Mflag == 0)
 		{
 			SimpleAudioEngine::getInstance()->playEffect("music/win.wav");

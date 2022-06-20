@@ -27,9 +27,14 @@ storyscene* storyscene::create()
 bool storyscene::init()
 {
 	//ÉùÒôÔ¤¼ÓÔØ
-	SimpleAudioEngine::getInstance()->preloadEffect("music/fail.mp3");
+	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/bgm.mp3");
+	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/level1.mp3");
+	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/level2.mp3");
+	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/level3.mp3");
+	SimpleAudioEngine::getInstance()->preloadEffect("music/lose.wav");
 	SimpleAudioEngine::getInstance()->preloadEffect("music/win.wav");
-	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/background.wav");
+	SimpleAudioEngine::getInstance()->preloadEffect("music/next.wav");
+	//SimpleAudioEngine::getInstance()->playBackgroundMusic("music/background.wav");
 	SimpleAudioEngine::getInstance()->preloadEffect("music/explode.wav");
 	SimpleAudioEngine::getInstance()->preloadEffect("music/shoot.mp3");
 	SimpleAudioEngine::getInstance()->preloadEffect("music/hitWall.wav");

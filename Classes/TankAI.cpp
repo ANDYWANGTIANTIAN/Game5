@@ -261,7 +261,7 @@ void TankAI::settingNewCourse()
         auto j = i; ++j;
         while (j != m_path.end())
         {
-            m_draw->drawLine(*i, *j, Color4F(1.0, 1.0, 1.0, 1.0));
+            //m_draw->drawLine(*i, *j, Color4F(1.0, 1.0, 1.0, 1.0));
             ++i;
             ++j;
         }

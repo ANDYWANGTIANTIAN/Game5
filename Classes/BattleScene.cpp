@@ -47,6 +47,8 @@ bool BattleScene::init(int stage)
     object_list.clear();
     object_manager = this;
 
+    auto pink_bg = Sprite::createWithTexture(TextureCache::getInstance()->addImage("pink.jpg"));
+    this->addChild(pink_bg);
 
     // ¹Ø¿¨ÉèÖÃ
     player_life = 3;
