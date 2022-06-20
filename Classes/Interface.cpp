@@ -223,7 +223,6 @@ void Interface::gameinterface()
 	flag = 1;
 	char str[20] = "";
 
-
 	//选择关卡界面
 	auto combat_UI = GUIReader::getInstance()->widgetFromJsonFile("006_1/combat_1.ExportJson");
 	addChild(combat_UI);
@@ -384,6 +383,7 @@ void Interface::gameinterface()
 	this->addChild(menu5, 1);
 	menu5->setTag(203);
 	menu5->setVisible(false);
+
 }
 
 //更新排行榜
@@ -418,16 +418,19 @@ void Interface::updateranking_List()
 //重开函数
 void Interface::replay()
 {
-	Mflag = 0;
+	//Mflag = 0;
 	this->getChildByTag(201)->setVisible(false);
 	this->getChildByTag(202)->setVisible(false);
 	this->getChildByTag(203)->setVisible(false);
-	updateranking_List();
-	player_score = 0;
+	//this->getChildByTag(500)->setVisible(false);
+	//updateranking_List();
+	//player_score = 0;
 	gamescene->removeFromParent();
-	gamescene = BattleScene::create(level);
-	this->getParent()->addChild(gamescene);
-
+	//gamescene = BattleScene::create(level);
+	//this->getParent()->addChild(gamescene);
+	if (stage == 1) choosefirst();
+	if (stage == 2) choosesecond();
+	if (stage == 3) choosethird();
 }
 
 //进入下一关
