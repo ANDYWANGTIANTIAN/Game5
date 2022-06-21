@@ -708,7 +708,6 @@ void Interface::start()
 	this->getChildByTag(1001)->setVisible(false);
 	this->getChildByTag(1003)->setVisible(true);
 	gamescene = BattleScene::create(level);
-	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/bgm.mp3", true);
 	this->getParent()->addChild(gamescene);
 	if (flag == 0)
 		gameinterface();
